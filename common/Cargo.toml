@@ -1,0 +1,12 @@
+[package]
+name = "ttt_common"
+version = "0.1.0"
+authors = ["Martin Habovstiak <martin.habovstiak@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dirs = "2.0.2"
+rusqlite = "0.23.1"
+thiserror = "1.0.17"

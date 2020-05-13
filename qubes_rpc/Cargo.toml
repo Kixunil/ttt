@@ -1,0 +1,15 @@
+[package]
+name = "ttt_qubes_rpc"
+version = "0.1.0"
+authors = ["Martin Habovstiak <martin.habovstiak@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+slog = { version = "2.5.2", features = ["max_level_trace", "release_max_level_info"] }
+anyhow = "1.0.28"
+dirs = "2.0.2"
+rusqlite = "0.23.1"
+sloggers = "1.0.0"
+ttt_common = { path = "../common" }

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Set your VM name here!
+target_vm=""
+
+# This workarounds crashes, but forces the VM to always run :(
+while :;
+do
+	xprop -spy -root -notype _NET_ACTIVE_WINDOW | sed -ue 's/^.*# //' -e 's/,.*$//' | while read id;
+	do
+		focused_vm="`xprop -notype -id $id _QUBES_VMNAME 2>/dev/null | cut -d '"' -f 2`"
+		# dom0 doesn't set _QUBES_VMNAME, so we assume dom0 if it's missing
+		test "$focused_vm" = "_QUBES_VMNAME:  not found." && focused_vm=dom0
+		# We get empty strings when switching the desktops, ignore them
+		test -n "$focused_vm" && echo "`date +%s` $focused_vm"
+	done | qvm-run -p --user user --service "$target_vm" ttt
+done
