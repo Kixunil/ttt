@@ -48,7 +48,7 @@ I'll be happy to accept contributions, especially to the CLI tool!
 
 ## Known issues
 
-UNIQUE constraints are violated sometimes, IDK how's that possible. Some events/VMs seem to be lost.
+~~UNIQUE constraints are violated sometimes, IDK how's that possible. Some events/VMs seem to be lost.~~ - Looks like I messed up replacing the binaries after fixing the issue keeping it here until better tested.
 
 ## License
 
