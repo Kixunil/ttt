@@ -19,6 +19,7 @@ There are two notable edge cases: `dom0`, which can be considered neutral and `d
 
 After collecting some data you can run `ttt stats today` to see todays statistics. Other options include:
 
+* `ttt stats yesterday`
 * `ttt stats this week`
 * `ttt stats this month`
 * `ttt stats this year`

@@ -4,9 +4,10 @@ use chrono::Local;
 fn process_stats(mut args: std::env::Args) -> Result<(), anyhow::Error> {
     use chrono::Datelike;
 
-    let period0 = args.next().ok_or_else(|| anyhow::anyhow!("udefined period, known periods: today, this {week,month,year}, 'start datetime' {day,week,month,year}, 'start datetime' 'end datetime'"))?;
+    let period0 = args.next().ok_or_else(|| anyhow::anyhow!("udefined period, known periods: today, yesterday, this {week,month,year}, 'start datetime' {day,week,month,year}, 'start datetime' 'end datetime'"))?;
     let (begin, end): (_, Option<chrono::DateTime<Local>>) = match &*period0 {
         "today" => (Local::today().and_time(chrono::NaiveTime::from_num_seconds_from_midnight(0, 0)).expect("invalid datetime"), None),
+        "yesterday" => (Local::today().pred().and_time(chrono::NaiveTime::from_num_seconds_from_midnight(0, 0)).expect("invalid datetime"), Some(Local::today().and_time(chrono::NaiveTime::from_num_seconds_from_midnight(0, 0)).expect("invalid datetime"))),
         "this" => {
             let period0_0 = args.next().ok_or_else(|| anyhow::anyhow!("missing either week, month, or year"))?;
             (match &*period0_0 {
