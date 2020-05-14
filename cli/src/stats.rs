@@ -27,7 +27,7 @@ pub fn fetch_stats(database: &rusqlite::Connection, interval: Interval, vm: Opti
             stmt.query(&[&interval.from.0 as &dyn ToSql, &*vm as &dyn ToSql])?
         },
         (Some(to), None) => {
-            stmt = database.prepare("SELECT vm, SUM(duration) FROM intervals WHERE begin >= ? AND begin + duration < ? GROUP BY vm ORDDER BY vm ASC")?;
+            stmt = database.prepare("SELECT vm, SUM(duration) FROM intervals WHERE begin >= ? AND begin + duration < ? GROUP BY vm ORDER BY vm ASC")?;
             stmt.query(&[&interval.from.0 as &dyn ToSql, &to.0 as &dyn ToSql])?
         },
         (Some(to), Some(vm)) => {
