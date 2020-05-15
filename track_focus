@@ -12,6 +12,14 @@ do
 		# dom0 doesn't set _QUBES_VMNAME, so we assume dom0 if it's missing
 		test "$focused_vm" = "_QUBES_VMNAME:  not found." && focused_vm=dom0
 		# We get empty strings when switching the desktops, ignore them
-		test -n "$focused_vm" && echo "`date +%s` $focused_vm"
+		if [ -n "$focused_vm" ];
+		then
+			if [ "`qvm-prefs "$focused_vm" auto_cleanup 2> /dev/null`" = "True" ];
+			then
+				parent_vm="`pgrep -af '^/usr/lib/qubes/qrexec-client -d '"$focused_vm" | sed 's/.* //'`"
+				focused_vm="$parent_vm:$focused_vm"
+			fi
+			echo "`date +%s` $focused_vm"
+		fi
 	done | qvm-run -p --user user --service "$target_vm" ttt
 done

@@ -6,7 +6,7 @@ Free and Open Source minimalistic time tracker leveraging QubesOS VMs to categor
 
 This tool is written for QubesOS, which separates all your activities into separate virtual machines (domains) in order to achieve security. As an interesting byproduct, it achieves nice organization of life as well. If the separation mechanism is used properly, there exists mapping from `vm_name -> fun|work` (or a more granular categorization). If the mapping doesn't seem to work for you, you've almost certainly mixed security domains that you shouldn't have mixed. :)
 
-There are two notable edge cases: `dom0`, which can be considered neutral and `dispX` which has unpredictable name. Contributions to improve the latter welcome! (Some rough ideas: track which VM spawned it, if it's spawned from dom0 ask right away or decide based on the template, if we can query it.)
+There are two notable edge cases: `dom0`, which can be considered neutral and `dispX` which has unpredictable name. DispVMs are currently prefixed by the name of their parents followed by colon to help with categorization, however, it's not that useful for `dom0`. Contributions to improve it welcome! (Ideas: ask about it or decide based on the template.)
 
 ## Installation
 
@@ -39,7 +39,8 @@ I'll be happy to accept contributions, especially to the CLI tool!
 * Filter VMs
 * Groups of VMs (sometimes it's useful to separate an activity into several qubes - e.g. work between each client/project)
 * Handle edge-cases like going to sleep, turning off the computer, turning off tracking VM
-* Detect which template launched a dispvm and use its name
+* Have more information about dispvm launched by `dom0`
+* Allow merging output of `ttt stats` for dispvms
 * Combine with other sources of events (smartphone, manual entry)
 * Allow editing/overriding the records
 * Proper documentation (man page etc)
