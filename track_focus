@@ -16,7 +16,7 @@ do
 		then
 			if [ "`qvm-prefs "$focused_vm" auto_cleanup 2> /dev/null`" = "True" ];
 			then
-				parent_vm="`pgrep -af '^/usr/lib/qubes/qrexec-client -d '"$focused_vm" | sed 's/.* //'`"
+				parent_vm="`pgrep -af '^/usr/lib/qubes/qrexec-client -d '"$focused_vm"' ' | sed 's/.* //'`"
 				focused_vm="$parent_vm:$focused_vm"
 			fi
 			echo "`date +%s` $focused_vm"
