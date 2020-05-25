@@ -17,6 +17,8 @@ There are two notable edge cases: `dom0`, which can be considered neutral and `d
 
 ## Usage
 
+### Stats
+
 After collecting some data you can run `ttt stats today` to see todays statistics. Other options include:
 
 * `ttt stats yesterday`
@@ -28,6 +30,16 @@ After collecting some data you can run `ttt stats today` to see todays statistic
 
 Where `BEGIN` and `END` is any string that can be parsed as local date/time by [`chrono`](https://crates.io/crates/chrono)
 
+### Groups
+
+You can group VMs in order to simplify the output of stats:
+
+1. Create a group by running `ttt group create GROUPNAME` (e.g. `ttt group create fun`)
+2. Add VMs to the group by running `ttt group addvms GROUPNAME VMS ...` (e.g. `ttt group addvms fun games social-networks`)
+3. After running `ttt stats ...` you'll see the VMs grouped. They currently can't be "ungrouped" ping me or make a PR, if you need it.
+
+## Troubleshooting
+
 In case something seems wrong, inspect the log file in `~/.local/share/ttt/qubes_rpc.log`
 
 ## Contributions and planned features
@@ -37,7 +49,7 @@ I'll be happy to accept contributions, especially to the CLI tool!
 ### Wanted features
 
 * Filter VMs
-* Groups of VMs (sometimes it's useful to separate an activity into several qubes - e.g. work between each client/project)
+* ~~Groups of VMs (sometimes it's useful to separate an activity into several qubes - e.g. work between each client/project)~~
 * Handle edge-cases like going to sleep, turning off the computer, turning off tracking VM
 * Have more information about dispvm launched by `dom0`
 * Allow merging output of `ttt stats` for dispvms

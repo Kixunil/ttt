@@ -1,4 +1,5 @@
 mod stats;
+mod group;
 use chrono::Local;
 
 fn process_stats(mut args: std::env::Args) -> Result<(), anyhow::Error> {
@@ -40,6 +41,25 @@ fn process_stats(mut args: std::env::Args) -> Result<(), anyhow::Error> {
     stats::fetch_stats(&db, interval, None)
 }
 
+fn process_group(mut args: std::env::Args) -> Result<(), anyhow::Error> {
+    let subcmd = args.next().ok_or_else(|| anyhow::anyhow!("undefined subcommand, available subcommands: create, addvms"))?;
+
+    let data_dir = ttt_common::default_data_dir()?;
+    let db = ttt_common::db_connect(data_dir)?;
+
+    match &*subcmd {
+        "create" => {
+            let group_name = args.next().ok_or_else(|| anyhow::anyhow!("missing group name"))?;
+            group::create(&db, &group_name)
+        },
+        "addvms" => {
+            let group_name = args.next().ok_or_else(|| anyhow::anyhow!("missing group name"))?;
+            group::add_qubes(&db, &group_name, args)
+        },
+        unknown => Err(anyhow::anyhow!("unknown subcommand: {}", unknown)),
+    }
+}
+
 fn main() -> Result<(), anyhow::Error> {
     let mut args = std::env::args();
     let _program = args.next().ok_or_else(|| anyhow::anyhow!("not even zeroth argument present"))?;
@@ -47,6 +67,7 @@ fn main() -> Result<(), anyhow::Error> {
 
     match &*command {
         "stats" => process_stats(args)?,
+        "group" => process_group(args)?,
         unknown => anyhow::bail!("unknown command: {}", unknown),
     }
     Ok(())
